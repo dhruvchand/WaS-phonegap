@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Single page template</title>
+	<audio id="emergency" src="sounds/Emergency.mp3" type="audio/mp3" ></audio>
+</head>
+
+<body>
+    
+
+<script type="text/javascript">
+  
+  var map = ["CAUTION", "WARNING", "EMERGENCY", "OFF"];
+  var freq = ["1000","700","500"];
+  var intv;
+  var data = 3;
+  function  set(d){
+	  data = d;
+	  ping();
+  }
+  
+  
+  function ping(){
+	  
+	  if(data==3){
+		   clearInterval(intv)
+	$.get("http://192.168.43.201/"+map[data],function(e){
+      console.log(e);
+    })
+	  }
+	  
+	  else{
+
+		    $.ajax({
+                type: 'GET',
+                url: "http://192.168.43.201/"+map[data],
+                success: function (d) {
+                        interval = setTimeout(ping, freq[data]);   
+                }
+       		 });
+		
+	  }
+  }
+      
+
+    function playAudio(id) {
+    var audioElement = document.getElementById(id);
+    var url = audioElement.getAttribute('src');
+    var my_media = new Media(url,
+            // success callback
+             function () { console.log("playAudio():Audio Success"); },
+            // error callback
+             function (err) { console.log("playAudio():Audio Error: " + err); }
+    );
+           // Play audio
+    my_media.play();
+}
+    
+</script>
+
+<div data-role="page">
+	<div data-role="header">
+		<h1>WaS</h1>
+	</div>
+
+	<div data-role="content">
+    <button onclick="set(0) " data-theme="b">Caution </button>
+    <button onclick="set(1)" data-theme="b">Warning </button>
+    <button onclick="set(2)" data-theme="b">Emergency </button>
+    <button onclick="set(3)" data-theme="a" >Turn Off</button>
+        <button onclick="playAudio('emergency')">Play errorSoundlocal</button>
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		<h4>content</h4>
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+
+
+    <script type="text/javascript" src="cordova.js">
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+    </script>
+    <link rel="stylesheet" href="./css/jquery.mobile-1.0.min.css" />
+	<script src="./js/jquery-1.6.4.min.js"></script>
+	<script src="./js/jquery.mobile-1.0.min.js"></script>
+    
+</body>
+</html>
