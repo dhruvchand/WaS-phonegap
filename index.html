@@ -17,6 +17,7 @@
   var freq = ["1000","700","500"];
   var intv;
   var data = 3;
+    var isPlaying = 0;
   function  set(d){
 	  data = d;
 	  ping();
@@ -34,9 +35,10 @@
 	  }
 	  
 	  else{
-          
+          if(isPlaying == 0){
           playAudio('Emergency.mp3')
          setTimeout(stopAudio,5000);
+          }
 		    $.ajax({
                 type: 'GET',
                 url: "http://192.168.43.201/"+map[data],
@@ -52,10 +54,12 @@
     
     var media;
     function stopAudio(){
+        isPlaying = 0;
         media.stop();
     }
     
     function playAudio(src) {
+        isPlaying = 1;
             if (device.platform == 'Android') {
                 src = '/android_asset/www/sounds/' + src;
             }
@@ -70,8 +74,8 @@
         }
 
         function error_error(e) {
-            alert('great error');
-            alert(e.getStackTrace());
+           // alert('great error');
+            //alert(e.getStackTrace());
         }
 
     
@@ -90,7 +94,7 @@
 	</div><!-- /content -->
 
 	<div data-role="footer">
-		<h4>content</h4>
+		<h4></h4>
 	</div><!-- /footer -->
 
 </div><!-- /page -->
