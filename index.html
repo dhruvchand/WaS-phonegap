@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Single page template</title>
-	<audio id="emergency" src="sounds/Emergency.mp3" type="audio/mp3" ></audio>
+	<audio id="emergency" src="./sounds/Emergency.mp3" type="audio/mpeg" ></audio>
 </head>
 
 <body>
@@ -47,8 +47,10 @@
       
 
     function playAudio(id) {
+    
     var audioElement = document.getElementById(id);
     var url = audioElement.getAttribute('src');
+        alert("read");
     var my_media = new Media(url,
             // success callback
              function () { console.log("playAudio():Audio Success"); },
@@ -56,6 +58,7 @@
              function (err) { console.log("playAudio():Audio Error: " + err); }
     );
            // Play audio
+        alert(urL);
     my_media.play();
 }
     
