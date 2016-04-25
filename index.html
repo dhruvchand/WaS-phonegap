@@ -14,6 +14,7 @@
 <script type="text/javascript">
   
   var map = ["CAUTION", "WARNING", "EMERGENCY", "OFF"];
+  var audio = ["caution","warning","emergency"];
   var freq = ["1000","700","500"];
   var intv;
   var data = 3;
@@ -36,8 +37,9 @@
 	  
 	  else{
           if(isPlaying == 0){
-          playAudio('Emergency.mp3')
-         setTimeout(stopAudio,5000);
+          playAudio(audio[data]+'.mp3')
+         //setTimeout(stopAudio,5000);
+         //setTimeout(stopAudio,5000);
           }
 		    $.ajax({
                 type: 'GET',
@@ -96,7 +98,9 @@
 	<div data-role="footer">
 		<h4></h4>
 	</div><!-- /footer -->
-
+<div id = "spacer">
+    
+    </div>
 </div><!-- /page -->
 
 
